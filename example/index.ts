@@ -7,7 +7,7 @@ interface IUser {
   timestamp: Date;
   children: IUser[];
   parent?: IUser;
-  styles: Map<string, string>;
+  styles: Immutable.Map<string, string>;
 }
 function func(user: IRecord<IUser>) {
   user.getIn(["children", 0, "age"]); // ok
