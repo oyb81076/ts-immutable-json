@@ -1,5 +1,5 @@
 # install
-yarn add ts-immutable
+yarn add ts-immutable-json
 # ts-immutable
 a simple immutable .d.ts support
 ## usage
