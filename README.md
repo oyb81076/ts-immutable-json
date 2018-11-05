@@ -30,5 +30,5 @@ function fromImmutable() {
 }
 ```
 # example
-![pic0](https://github.com/oyb81076/ts-immutable-json/blob/master/example/pic0.png)
-![pic0](https://github.com/oyb81076/ts-immutable-json/blob/master/example/pic1.png)
+![pic0](https://github.com/oyb81076/ts-immutable-json/raw/master/example/pic0.png)
+![pic0](https://github.com/oyb81076/ts-immutable-json/raw/master/example/pic1.png)
