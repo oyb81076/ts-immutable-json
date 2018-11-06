@@ -4,28 +4,32 @@ declare type Value<T> = T extends any[] ? List<Basic<T[number]>> : Basic<T>;
 export interface IMapRecord<T> {
   clear(): this;
   delete<K extends keyof T>(key: K): this;
+  entries<K extends keyof T>(): IterableIterator<[K, T[K]]>;
   filter(predicate: <K extends keyof T>(value: T[K], key: K, iter: this) => any, context?: any): this;
-  get<K extends keyof T>(key: K, notSetValue?: Value<T[K]>): Value<T[K]>;
+  get<K extends keyof T>(key: K, notSetValue?: T[K]): T[K];
+  getIn(key: any[] | Iterable<any>, notSetValue?: any): any;
   has<K extends keyof T>(key: K): boolean;
-  includes(value: Value<T[keyof T]>): boolean;
+  hasIn(key: any[] | Iterable<any>): boolean;
+  includes(value: T[keyof T]): boolean;
   isEmpty(): boolean;
-  keys(): keyof T;
+  keys(): IterableIterator<keyof T>;
   merge(...iterables: Array<Partial<T>>): this;
-  merge<K extends keyof T, V = Value<T[K]>>(...iterables: Array<Iterable<[K, V]>>): this;
+  merge<K extends keyof T>(...iterables: Array<Iterable<[K, T[K]]>>): this;
   readonly size: number;
-  set<K extends keyof T>(key: K, value: Value<T[K]>): this;
-  toArray(): Array<Value<T[keyof T]>>;
+  set<K extends keyof T>(key: K, value: T[K]): this;
+  setIn(key: Iterable<any> | any[], v: any): this;
+  toArray(): Array<T[keyof T]>;
   toJS(): T;
-  toList(): List<Value<T[keyof T]>>;
-  toMap<K extends keyof T, V = Value<T[K]>>(): Map<K, V>;
-  toObject(): { [K in keyof T]: Value<T[K]> };
-  toOrderedMap<K extends keyof T, V = Value<T[K]>>(): OrderedMap<K, V>;
+  toList(): List<T[keyof T]>;
+  toMap<K extends keyof T>(): Map<K, T[K]>;
+  toObject(): T;
+  toOrderedMap<K extends keyof T>(): OrderedMap<K, T[K]>;
   toOrderedSet(): OrderedSet<Value<T[keyof T]>>;
   toSeq<K extends keyof T, V = Value<T[K]>>(): Seq<K, V>;
   toSet(): Set<Value<T[keyof T]>>;
   update(updater: (value: this) => this): this;
-  update<K extends keyof T>(key: K, notSetValue: Value<T[K]>, updater: (value: Value<T[K]>) => Value<T[K]>): this;
-  update<K extends keyof T>(key: K, updater: (value: Value<T[K]>) => Value<T[K]>): this;
+  update<K extends keyof T>(key: K, notSetValue: T[K], updater: (value: T[K]) => T[K]): this;
+  update<K extends keyof T>(key: K, updater: (value: T[K]) => T[K]): this;
   withMutations(mutator: (mutable: this) => any): this;
 }
 export interface IRecord<T> {
@@ -36,7 +40,7 @@ export interface IRecord<T> {
   count(): number;
   delete<K extends keyof T>(key: K): this;
   deleteIn(keyPath: any[] | Iterable<any>): this;
-  entries<K extends keyof T, V = Value<T[K]>>(): Iterator<[K, V]>;
+  entries<K extends keyof T>(): IterableIterator<[K, Value<T[K]>]>;
   equals(t: any): boolean;
   filter(predicate: <K extends keyof T>(value: T[K], key: K, iter: this) => any, context?: any): this;
   first(): Value<T[keyof T]>;
@@ -54,7 +58,7 @@ export interface IRecord<T> {
   hasIn(searchKeyPath: any[] | Iterable<any>): boolean;
   includes(value: Value<T[keyof T]>): boolean;
   isEmpty(): boolean;
-  keys(): keyof T;
+  keys(): IterableIterator<keyof T>;
   last(): Value<T[keyof T]>;
   map<M, K extends keyof T>(mapper: (value?: Value<T[K]>, key?: K, iter?: this) => M, context?: any): this;
   merge(...iterables: Array<Partial<T>>): this;
@@ -95,7 +99,7 @@ export interface IRecord<T> {
   updateIn<K1 extends keyof T, K2 extends keyof T[K1]>(keyPath: [K1, K2], updater: (value?: Value<T[K1][K2]>) => Value<T[K1][K2]>): this;
   updateIn<K1 extends keyof T>(keyPath: [K1], notSetValue: Value<T[K1]>, updater: (value: Value<T[K1]>) => Value<T[K1]>): this;
   updateIn<K1 extends keyof T>(keyPath: [K1], updater: (value?: Value<T[K1]>) => Value<T[K1]>): this;
-  values(): Iterator<Value<T[keyof T]>>;
+  values(): IterableIterator<Value<T[keyof T]>>;
   withMutations(mutator: (mutable: this) => any): this;
 }
 interface IFromJS {
