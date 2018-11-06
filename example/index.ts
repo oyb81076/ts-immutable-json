@@ -13,6 +13,9 @@ function func(user: IRecord<IUser>) {
   user.getIn(["children", 0, "age"]); // ok
   // user.getIn(["children", 0, "age2"]); // ts error
   user.getIn(Immutable.Seq(["not exists name"])); // ok
+  const map = Immutable.Map();
+  map.merge({});
+  map.deleteIn([""]);
   user.updateIn(["children", 0], (u) => {
     return u!.set("age", 3);
   });
