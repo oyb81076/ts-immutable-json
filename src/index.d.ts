@@ -110,5 +110,5 @@ interface IFromMap {
   <T extends object>(obj: T): IMapRecord<T>;
 }
 export declare const fromJS: IFromJS;
-export declare const fromMap: IFromJS;
+export declare const fromMap: IFromMap;
 export { };
