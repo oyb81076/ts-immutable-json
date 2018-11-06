@@ -1,2 +1,3 @@
-const { fromJS } = require("immutable");
+const { fromJS, Map } = require("immutable");
 exports.fromJS = fromJS;
+exports.fromMap = Map;
